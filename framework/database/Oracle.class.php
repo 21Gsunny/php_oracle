@@ -108,21 +108,8 @@ class Oracle {
         $table_column = $this->_tbFields($tbName);
         $ret=array();
         foreach ($data as $key=>$val) {
-            if (!is_scalar($val)) continue; //值不是标量则跳过
-            if (array_key_exists($key,$table_column)) {
-                $key = $this->_addChar($key);
-                if (is_int($val)) {
-                    $val = intval($val);
-                } elseif (is_float($val)) {
-                    $val = floatval($val);
-                } elseif (preg_match('/^\(\w*(\+|\-|\*|\/)?\w*\)$/i', $val)) {
-                    // 支持在字段的值里面直接使用其它字段 ,例如 (score+1) (name) 必须包含括号
-                    $val = $val;
-                } elseif (is_string($val)) {
-                    $val = '"'.addslashes($val).'"';
-                }
-                $ret[$key] = $val;
-            }
+			$val = '\''.$val.'\'';
+            $ret[$key] = $val;
         }
         return $ret;
     }
@@ -164,10 +151,6 @@ class Oracle {
             //查询操作
             return $this->_doQuery($sql);
         }
-    }
-    public function Mquery($sql=''){
-
-        mysql_query($sql);
     }
     /**
     * 获取最近一次查询的sql语句
