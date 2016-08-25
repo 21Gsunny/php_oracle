@@ -52,7 +52,7 @@ class Oracle {
 				)
 				(CONNECT_DATA =
 					(SERVICE_NAME = ". $this->_dbName .")
-				))";
+				));charset=UTF8";
         $options = $this->_pconnect ? array(PDO::ATTR_PERSISTENT=>true) : array();
         try {
             $dbh = new PDO("oci:dbname = ".$tns, $this->_user, $this->_pass, $options);
@@ -75,7 +75,7 @@ class Oracle {
         if ('*'==$value || false!==strpos($value,'(') || false!==strpos($value,'.') || false!==strpos($value,'`')) {
             //如果包含* 或者 使用了sql方法 则不作处理
         } elseif (false === strpos($value,'`') ) {
-            $value = '`'.trim($value).'`';
+            $value = '"'.trim($value).'"';
         }
         return $value;
     }
