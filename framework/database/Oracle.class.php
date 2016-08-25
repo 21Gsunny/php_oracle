@@ -66,8 +66,8 @@ class Oracle {
     }
 
     /**
-    * 字段和表名添加 `符号
-    * 保证指令中使用关键字不出错 针对mysql
+    * 字段或者表名添加 "" 
+    * 保证指令中使用关键字不出错 针对oracle
     * @param string $value
     * @return string
     */
